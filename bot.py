@@ -79,13 +79,31 @@ def tweet_schedule_daily(username, reply_id):
     message = 'Inget bro\nSenin tgl 9 Basdat jam 1 \nRabu tgl 11 SO / OS jam 10 \nJumat tgl 13 SG jam 7.30 \nSabtu tgl 15 KWN jam 11.30\nSenin tgl 16 Jarkomdat jam 1\nSelasa tgl 17 Matdislog jam 10\nRabu tgl 18 ISIS jam 7.30\nKamis tgl 19 Sismik jam 1\nJumat tgl 20 Pemsim jam 8.30'
     api.update_status('@%s %s' % (username, message), reply_id)
 
+def daily_uas_reminder(date):
+    ids = get_follower_lists()
+    for id in ids:
+        username = api.get_user(id)
+        api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username, jadwalUas[date]))
+        #print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+
+def get_follower_lists():
+    ids = []
+    for page in tweepy.Cursor(api.followers_ids, screen_name='ReminderUas').pages():
+        ids.extend(page)
+        time.sleep(5)
+    return ids
+    
+
 def waiting(second):
     for i in range(second):
         print("waiting... %i seconds left" % int(second - i))
         time.sleep(1)
 
 while True:
+    print("Searching for tweet")
     get_tweet_keyword()
     waiting(15)
-    print("Searching for tweet")
-    
+    date = str(datetime.datetime.today()).split()[0]
+    date = datetime.datetime(2019, 12, 9)
+    if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H") == '22'):
+        daily_uas_reminder(date)
