@@ -83,7 +83,7 @@ def daily_uas_reminder(date):
     ids = get_follower_lists()
     for id in ids:
         username = api.get_user(id)
-        api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username, jadwalUas[date]))
+        api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
         #print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
 
 def get_follower_lists():
@@ -104,6 +104,5 @@ while True:
     get_tweet_keyword()
     waiting(15)
     date = str(datetime.datetime.today()).split()[0]
-    date = datetime.datetime(2019, 12, 9)
-    if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H") == '22'):
+    if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H") == '5'):
         daily_uas_reminder(date)
