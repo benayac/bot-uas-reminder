@@ -11,12 +11,9 @@ tweet_id = []
 def get_mention():
     for tweet in tweepy.Cursor(api.mentions_timeline).items():
         try:
-            if('besok' in tweet.text.split() and tweet.id not in tweet_id):
-                tweet_schedule('besok', tweet.user.screen_name, tweet.id)
+            if(tweet.id not in tweet_id):
+                api.update_status('@%s bro kalo mau nanyak pake "teti2018"' % (tweet.user.screen_name), tweet.id)
                 tweet_id.append(tweet.id)
-            elif('lusa' in tweet.text.split() and tweet.id not in tweet_id):
-                tweet_schedule('lusa', tweet.user.screen_name, tweet.id)
-                tweet_id.append(tweet.id) 
         except Exception as identifier:
             print(identifier)
             tweet_id.append(tweet.id)
@@ -38,6 +35,8 @@ def get_tweet_keyword():
             elif('lengkap' in tweet.text.split() and tweet.id not in tweet_id):
                 tweet_schedule_daily(tweet.user.screen_name, tweet.id) 
                 tweet_id.append(tweet.id)
+            elif(tweet.id not in tweet_id):
+                api.update_status('@%s maaf bro cuma bisa nanyak besok, lusa, hari ini, sama jadwal lengkap.. sori ya:(' % (tweet.user.screen_name), tweet.id)
         except Exception as identifier:
             print(identifier)
             tweet_id.append(tweet.id)    
