@@ -5,7 +5,7 @@ import datetime
     
 auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 tweet_id = []
 
 def get_mention():
@@ -16,10 +16,21 @@ def get_mention():
         elif('lusa' in tweet.text.split() and tweet.id not in tweet_id):
             tweet_schedule('lusa', tweet.user.screen_name, tweet.id)
             tweet_id.append(tweet.id)
-        time.sleep(10)  
+        time.sleep(5 * 60)  
+
+def get_tweet_keyword():
+    tweets = api.search(q="teti2018")
+    for tweet in tweets:
+        if('besok' in tweet.text.split() and tweet.id not in tweet_id):
+            tweet_schedule('besok', tweet.user.screen_name, tweet.id)
+            tweet_id.append(tweet.id)
+        elif('lusa' in tweet.text.split() and tweet.id not in tweet_id):
+            tweet_schedule('lusa', tweet.user.screen_name, tweet.id)
+            tweet_id.append(tweet.id)   
+        time.sleep(15)     
 
 def tweet_schedule(question, username, reply_id):
-    if(question == 'besok'):
+    if(question == 'besok'):    
         try:
             tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
             tomorrow = str(tomorrow).split()[0]
@@ -46,4 +57,8 @@ def tweet_schedule_daily():
     print('Senin tgl 9 Basdat jam 1 \nRabu tgl 11 SO / OS jam 10 \nJumat tgl 13 SG jam 7.30 \nSabtu tgl 15 KWN jam 11.30\nSenin tgl 16 Jarkomdat jam 1\nSelasa tgl 17 Matdislog jam 10\nRabu tgl 18 ISIS jam 7.30\nKamis tgl 19 Sismik jam 1\nJumat tgl 20 Pemsim jam 8.30')
 
 while True:
-    get_mention()
+    try:
+        get_tweet_keyword()
+        #get_mention()
+    except Exception as e:
+        print(e)
