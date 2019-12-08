@@ -89,16 +89,16 @@ def daily_uas_reminder(date, day):
     if(day == 'today'):
         for id in ids:
             username = api.get_user(id)
-            #api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             print('Daily Reminder Sent!')
-            print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            #print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             time.sleep(2)
     elif(day == 'tomorrow'):
         for id in ids:
             username = api.get_user(id)
-            #api.update_status('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            api.update_status('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             print('Tomorrow Reminder Sent!')
-            print('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            #print('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             time.sleep(2)
 
 def get_follower_lists():
