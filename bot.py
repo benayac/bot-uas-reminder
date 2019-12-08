@@ -49,7 +49,7 @@ def get_tweet_keyword():
 def tweet_schedule(question, username, reply_id):
     if(question == 'besok'):    
         try:
-            tomorrow = datetime.datetime.today() + datetime.timedelta(days=1, hours=-7)
+            tomorrow = datetime.datetime.today() + datetime.timedelta(days=1, hours=-17)
             tomorrow = str(tomorrow).split()[0]
             tomorrow = datetime.datetime.strptime(tomorrow, '%Y-%m-%d')
             print('Besok uasnya ' + str(jadwalUas[tomorrow]) + ' Bro')
@@ -60,7 +60,7 @@ def tweet_schedule(question, username, reply_id):
 
     elif(question == 'lusa'):
         try:
-            tomorrow = datetime.datetime.today() + datetime.timedelta(days=2, hours=-7)
+            tomorrow = datetime.datetime.today() + datetime.timedelta(days=2, hours=-17)
             tomorrow = str(tomorrow).split()[0]
             tomorrow = datetime.datetime.strptime(tomorrow, '%Y-%m-%d')
             api.update_status('@%s Lusa uasnya %s Bro' % (username, jadwalUas[tomorrow]), reply_id)
