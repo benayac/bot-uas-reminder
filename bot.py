@@ -133,5 +133,5 @@ while True:
     tomorrow = datetime.datetime.strptime(tomorrow, "%Y-%m-%d")
     if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M-%S") == '05-00-00'):
         daily_uas_reminder(date, 'today')
-    if(tomorrow in jadwalUas.keys and datetime.datetime.now().strftime("%H-%M-%S") == '20-00-00'):
+    if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M-%S") == '20-00-00'):
         daily_uas_reminder(tomorrow, 'tomorrow')
