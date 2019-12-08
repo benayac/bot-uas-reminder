@@ -89,16 +89,16 @@ def daily_uas_reminder(date, day):
     if(day == 'today'):
         for id in ids:
             username = api.get_user(id)
-            #api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             print('Daily Reminder Sent!')
-            print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            #print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             time.sleep(2)
     elif(day == 'tomorrow'):
         for id in ids:
             username = api.get_user(id)
-            #api.update_status('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            api.update_status('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             print('Tomorrow Reminder Sent!')
-            print('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            #print('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             time.sleep(2)
 
 def get_follower_lists():
@@ -111,6 +111,7 @@ def get_follower_lists():
 def random_motivation():
     motivation_word = ['twitteran terus sih ayo belajar!', 'woy belajar!', 'ingat wajah orang tua di rumah ketika melihat ipmu jelek!!', 'yok matiin hpnya buka buku!', 'belajar yok belajar', 'inget orang bodoh nggak bakal sukses!!']
     ran = random.randint(0,5)
+    api.update_status(motivation_word[ran])
     print(motivation_word[ran])
 
 def waiting(second):
