@@ -130,7 +130,7 @@ while True:
     try:
         if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '05-00'):
             daily_uas_reminder(date, 'today')
-        if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '20-00'):
+        if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '20-30'):
             daily_uas_reminder(tomorrow, 'tomorrow')
         if(datetime.datetime.now().strftime("%H-%M") == '12-00'):
             api.update_status('Inget bro\nSenin tgl 9 Basdat jam 1 \nRabu tgl 11 SO / OS jam 10 \nJumat tgl 13 SG jam 7.30 \nSenin tgl 16 Jarkomdat jam 1\nSelasa tgl 17 Matdislog jam 10\nRabu tgl 18 ISIS jam 7.30\nKamis tgl 19 Sismik jam 1\nJumat tgl 20 Pemsim jam 8.30')    
@@ -141,25 +141,3 @@ while True:
                 random_motivation()
     except Exception as identifier:
         print(identifier)
-
-# while True:
-#     waiting(15)
-#     date = str(datetime.datetime.today()).split()[0]
-#     date = datetime.datetime.strptime(date, "%Y-%m-%d")
-#     tomorrow = str(datetime.datetime.today() + datetime.timedelta(days=1)).split()[0]
-#     tomorrow = datetime.datetime.strptime(tomorrow, "%Y-%m-%d")
-#     try:
-#         if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '14-54'):
-#             daily_uas_reminder(date, 'today')
-#         if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '14-56'):
-#             daily_uas_reminder(tomorrow, 'tomorrow')
-#         if(datetime.datetime.now().strftime("%H-%M") == '14-56'):
-#             print('Update')
-#             #api.update_status('Inget bro\nSenin tgl 9 Basdat jam 1 \nRabu tgl 11 SO / OS jam 10 \nJumat tgl 13 SG jam 7.30 \nSenin tgl 16 Jarkomdat jam 1\nSelasa tgl 17 Matdislog jam 10\nRabu tgl 18 ISIS jam 7.30\nKamis tgl 19 Sismik jam 1\nJumat tgl 20 Pemsim jam 8.30')    
-#         if(int(datetime.datetime.now().strftime("%M")) % 5 == 0): 
-#             n = random.randint(0,100)
-#             print('Random number for your random motivation ' + str(n))
-#             if(n <= 20):
-#                 random_motivation()
-#     except Exception as identifier:
-#         print(identifier)
