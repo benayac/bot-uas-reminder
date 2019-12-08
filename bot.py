@@ -4,6 +4,7 @@ import time
 import datetime
 import requests
 import os
+import random
     
 auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
@@ -80,7 +81,7 @@ def tweet_schedule(question, username, reply_id):
             print(identifier)
 
 def tweet_schedule_daily(username, reply_id):
-    message = 'Inget bro\nSenin tgl 9 Basdat jam 1 \nRabu tgl 11 SO / OS jam 10 \nJumat tgl 13 SG jam 7.30 \nSabtu tgl 15 KWN jam 11.30\nSenin tgl 16 Jarkomdat jam 1\nSelasa tgl 17 Matdislog jam 10\nRabu tgl 18 ISIS jam 7.30\nKamis tgl 19 Sismik jam 1\nJumat tgl 20 Pemsim jam 8.30'
+    message = 'Inget bro\nSenin tgl 9 Basdat jam 1 \nRabu tgl 11 SO / OS jam 10 \nJumat tgl 13 SG jam 7.30 \nSenin tgl 16 Jarkomdat jam 1\nSelasa tgl 17 Matdislog jam 10\nRabu tgl 18 ISIS jam 7.30\nKamis tgl 19 Sismik jam 1\nJumat tgl 20 Pemsim jam 8.30'
     api.update_status('@%s %s' % (username, message), reply_id)
 
 def daily_uas_reminder(date, day):
@@ -106,17 +107,11 @@ def get_follower_lists():
         ids.extend(page)
         time.sleep(5)
     return ids
-    
-def img_howto(tweet):
-    filename = 'howto.jpg'
-    url = 'https://ton.twitter.com/1.1/ton/data/dm/1203493212544847876/1203493202734354433/WcHBwfar.jpg:medium'
-    request = requests.get(url, stream=True)
-    if request.status_code == 200:
-        with open(filename, 'wb') as image:
-            for chunk in request:
-                image.write(chunk)
-    api.update_with_media(filename ,status='@%s %s' % (tweet.user.screen_name, howwto), in_reply_to_status_id=tweet.id)
-    os.remove(filename)
+
+def random_motivation():
+    motivation_word = ['twitteran terus sih ayo belajar!', 'woy belajar!', 'ingat wajah orang tua di rumah ketika melihat ipmu jelek!!', 'yok matiin hpnya buka buku!', 'belajar yok belajar', 'inget orang bodoh nggak bakal sukses!!']
+    ran = random.randint(0,5)
+    print(motivation_word[ran])
 
 def waiting(second):
     for i in range(second):
@@ -135,3 +130,14 @@ while True:
         daily_uas_reminder(date, 'today')
     if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M-%S") == '20-00-00'):
         daily_uas_reminder(tomorrow, 'tomorrow')
+    if(datetime.datetime.now().strftime("%H-%M-%S") == '12-00-00'):
+        api.update_status('Inget bro\nSenin tgl 9 Basdat jam 1 \nRabu tgl 11 SO / OS jam 10 \nJumat tgl 13 SG jam 7.30 \nSenin tgl 16 Jarkomdat jam 1\nSelasa tgl 17 Matdislog jam 10\nRabu tgl 18 ISIS jam 7.30\nKamis tgl 19 Sismik jam 1\nJumat tgl 20 Pemsim jam 8.30')
+    try:
+        if(int(datetime.datetime.now().strftime("%M")) % 5 == 0 and int(datetime.datetime.now().strftime("%S")) == 0): 
+            n = random.randint(0,100)
+            print('Random number for your random motivation ' + str(n))
+            if(n % 5 == 0):
+                random_motivation()
+    except Exception as identifier:
+        print(identifier)
+    
