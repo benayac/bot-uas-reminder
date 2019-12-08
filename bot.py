@@ -109,7 +109,7 @@ def get_follower_lists():
     return ids
 
 def random_motivation():
-    motivation_word = ['twitteran terus sih ayo belajar!', 'woy belajar!', 'ingat wajah orang tua di rumah ketika melihat ipmu jelek!!', 'yok matiin hpnya buka buku!', 'belajar yok belajar', 'inget orang bodoh nggak bakal sukses!!']
+    motivation_word = ['twitteran terus sih ayo belajar!', 'woy belajar!', 'belajar belajar belajar belajar!!', 'yok matiin hpnya buka buku!', 'belajar yok belajar', 'ipk bukan penentu kesuksesan sih, tapi yaudah belajar!!']
     ran = random.randint(0,5)
     api.update_status(motivation_word[ran])
     print(motivation_word[ran])
