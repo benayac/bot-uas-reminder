@@ -2,11 +2,14 @@ from secrets import *
 import tweepy
 import time
 import datetime
+import requests
+import os
     
 auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 tweet_id = []
+howwto = 'bot teti18 edisi twitter lur\ncara pakenya sebutkan keywordnya trus tanya aja mau jadwal hari ini, besok atau jadwal lengkao\nselain itu kalo kamu follow, bakal dikasih daily reminder h-1 dan hari h uas lho!\nayo yg kesepian gak ada yg ngingetin uas, dari pada lupa mending follow kita aaweawe'
 
 def get_mention():
     for tweet in tweepy.Cursor(api.mentions_timeline).items():
@@ -36,7 +39,8 @@ def get_tweet_keyword():
                 tweet_schedule_daily(tweet.user.screen_name, tweet.id) 
                 tweet_id.append(tweet.id)
             elif(tweet.id not in tweet_id):
-                api.update_status('@%s maaf bro cuma bisa nanyak besok, lusa, hari ini, sama jadwal lengkap.. sori ya:(' % (tweet.user.screen_name), tweet.id)
+                api.update_status('@%s %s' % (tweet.user.screen_name, howwto), tweet.id)
+                tweet_id.append(tweet.id)
         except Exception as identifier:
             print(identifier)
             tweet_id.append(tweet.id)    
@@ -84,15 +88,17 @@ def daily_uas_reminder(date, day):
     if(day == 'today'):
         for id in ids:
             username = api.get_user(id)
-            #api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            api.update_status('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             print('Daily Reminder Sent!')
-            print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            #print('@%s Jangan lupa hari ini UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            time.sleep(2)
     elif(day == 'tomorrow'):
         for id in ids:
             username = api.get_user(id)
-            #api.update_status('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            api.update_status('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
             print('Tomorrow Reminder Sent!')
-            print('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            #print('@%s Jangan lupa besok UAS %s Bro' % (username.screen_name, jadwalUas[date]))
+            time.sleep(2)
 
 def get_follower_lists():
     ids = []
@@ -101,34 +107,31 @@ def get_follower_lists():
         time.sleep(5)
     return ids
     
+def img_howto(tweet):
+    filename = 'howto.jpg'
+    url = 'https://ton.twitter.com/1.1/ton/data/dm/1203493212544847876/1203493202734354433/WcHBwfar.jpg:medium'
+    request = requests.get(url, stream=True)
+    if request.status_code == 200:
+        with open(filename, 'wb') as image:
+            for chunk in request:
+                image.write(chunk)
+    api.update_with_media(filename ,status='@%s %s' % (tweet.user.screen_name, howwto), in_reply_to_status_id=tweet.id)
+    os.remove(filename)
 
 def waiting(second):
     for i in range(second):
         print("waiting... %i seconds left" % int(second - i))
         time.sleep(1)
 
-# while True:
-#     print("Searching for tweet")
-#     get_tweet_keyword()
-#     waiting(15)
-#     date = str(datetime.datetime.today()).split()[0]
-#     date = datetime.datetime.strptime(date, "%Y-%m-%d")
-#     tomorrow = str(datetime.datetime.today() + datetime.timedelta(days=1)).split()[0]
-#     tomorrow = datetime.datetime.strptime(tomorrow, "%Y-%m-%d")
-#     if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M-%S") == '05-00-00'):
-#         daily_uas_reminder(date, 'today')
-#     if(tomorrow in jadwalUas.keys and datetime.datetime.now().strftime("%H-%M-%S") == '20-00-00'):
-#         daily_uas_reminder(tomorrow, 'tomorrow')
-
-
 while True:
+    print("Searching for tweet")
+    get_tweet_keyword()
+    waiting(15)
     date = str(datetime.datetime.today()).split()[0]
     date = datetime.datetime.strptime(date, "%Y-%m-%d")
     tomorrow = str(datetime.datetime.today() + datetime.timedelta(days=1)).split()[0]
     tomorrow = datetime.datetime.strptime(tomorrow, "%Y-%m-%d")
-    if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M-%S") == '08-42-00'):
+    if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M-%S") == '05-00-00'):
         daily_uas_reminder(date, 'today')
-    if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M-%S") == '08-43-00'):
+    if(tomorrow in jadwalUas.keys and datetime.datetime.now().strftime("%H-%M-%S") == '20-00-00'):
         daily_uas_reminder(tomorrow, 'tomorrow')
-    print(datetime.datetime.now().strftime("%H-%M-%S"))
-    time.sleep(1)
