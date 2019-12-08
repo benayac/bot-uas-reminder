@@ -128,8 +128,7 @@ while True:
     tomorrow = str(datetime.datetime.today() + datetime.timedelta(days=1)).split()[0]
     tomorrow = datetime.datetime.strptime(tomorrow, "%Y-%m-%d")
     print("Today is " + str(tomorrow))
-    if(datetime.datetime.now().strftime("%H-%M") == '20-56'):
-        print("Now is " + str(datetime.datetime.now().strftime("%H-%M")))
+    print('Now is ' + str(datetime.datetime.now().strftime("%H-%M")))
     try:
         if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '05-00'):
             daily_uas_reminder(date, 'today')
