@@ -10,8 +10,7 @@ auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 tweet_id = []
-howwto = 'Bot TETI18 edisi twitter lur\nCara pakenya sebutkan keyword trus tanya aja mau jadwal hari ini, besok atau jadwal lengkap\nKhusus followers:\nDaily reminder h-1 dan hari h uas lho!\nAyo yg kesepian gak ada yg ngingetin uas, dari pada lupa mending follow'
-
+    
 def get_mention():
     for tweet in tweepy.Cursor(api.mentions_timeline).items():
         try:
@@ -109,10 +108,17 @@ def get_follower_lists():
     return ids
 
 def random_motivation():
-    motivation_word = ['twitteran terus sih ayo belajar!', 'woy belajar!', 'belajar belajar belajar belajar!!', 'yok matiin hpnya buka buku!', 'belajar yok belajar', 'ipk bukan penentu kesuksesan sih, tapi yaudah belajar!!']
-    ran = random.randint(0,5)
+    ran = random.randint(0,len(motivation_word)-1)
     api.update_status(motivation_word[ran])
     print(motivation_word[ran])
+
+# def get_dm():
+#     dms = api.list_direct_messages()
+#     for dm in dms:
+#         msg = dm.message_create['message_data']['text']
+#         if('teti2018' in msg.split()):
+#             print(msg)
+#             time.sleep(2)
 
 def waiting(second):
     for i in range(second):
@@ -123,6 +129,8 @@ while True:
     print("Searching for tweet")
     get_tweet_keyword()
     waiting(15)
+    #print("Getting DMs")
+    #get_dm()
     date = str(datetime.datetime.today()).split()[0]
     date = datetime.datetime.strptime(date, "%Y-%m-%d")
     tomorrow = str(datetime.datetime.today() + datetime.timedelta(days=1)).split()[0]
