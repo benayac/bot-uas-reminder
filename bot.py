@@ -9,7 +9,7 @@ auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 tweet_id = []
-howwto = 'bot teti18 edisi twitter lur\ncara pakenya sebutkan keywordnya trus tanya aja mau jadwal hari ini, besok atau jadwal lengkao\nKhusus followers! daily reminder h-1 dan hari h uas lho!\nayo yg kesepian gak ada yg ngingetin uas, dari pada lupa mending follow'
+howwto = 'Bot TETI18 edisi twitter lur\nCara pakenya sebutkan keyword trus tanya aja mau jadwal hari ini, besok atau jadwal lengkap\nKhusus followers:\nDaily reminder h-1 dan hari h uas lho!\nAyo yg kesepian gak ada yg ngingetin uas, dari pada lupa mending follow'
 
 def get_mention():
     for tweet in tweepy.Cursor(api.mentions_timeline).items():
