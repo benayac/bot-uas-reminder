@@ -127,11 +127,11 @@ while True:
     date = datetime.datetime.strptime(date, "%Y-%m-%d")
     tomorrow = str(datetime.datetime.today() + datetime.timedelta(days=1)).split()[0]
     tomorrow = datetime.datetime.strptime(tomorrow, "%Y-%m-%d")
-    print("Now is " + str(tomorrow))
+    print("Today is " + str(tomorrow))
     try:
         if(date in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '05-00'):
             daily_uas_reminder(date, 'today')
-        if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '21-00'):
+        if(tomorrow in jadwalUas.keys() and datetime.datetime.now().strftime("%H-%M") == '20-53'):
             daily_uas_reminder(tomorrow, 'tomorrow')
             print('Go to if tomorrow')
         if(datetime.datetime.now().strftime("%H-%M") == '12-00'):
