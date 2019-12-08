@@ -53,7 +53,7 @@ def tweet_schedule(question, username, reply_id):
             tomorrow = str(tomorrow).split()[0]
             tomorrow = datetime.datetime.strptime(tomorrow, '%Y-%m-%d')
             print('Besok uasnya ' + str(jadwalUas[tomorrow]) + ' Bro')
-            api.update_status('@%s Besok uasnya %s Bro' % (username, jadwalUas[tomorrow], reply_id))
+            api.update_status('@%s Besok uasnya %s Bro' % (username, jadwalUas[tomorrow]), reply_id)
         except Exception as identifier:
             api.update_status('@%s Wah besok gak ada UAS bro' % username, reply_id)
             print(identifier)
