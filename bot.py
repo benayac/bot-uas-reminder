@@ -137,7 +137,7 @@ while True:
         if(int(datetime.datetime.now().strftime("%M")) % 5 == 0): 
             n = random.randint(0,100)
             print('Random number for your random motivation ' + str(n))
-            if(n <= 20):
+            if(n <= 10):
                 random_motivation()
     except Exception as identifier:
         print(identifier)
